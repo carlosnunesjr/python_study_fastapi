@@ -1,0 +1,7 @@
+.env
+run_dev.txt
+killPort.sh
+
+venv
+__pycache__
+.vscode
