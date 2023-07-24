@@ -28,6 +28,27 @@ services:
     networks:
       - postgres
 
+  api:
+    build: .
+    ports:
+      - 8000:8000
+    environment:
+      - DATABASE_HOSTNAME=database
+      - DATABASE_PORT=5432
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_NAME=python_test
+      - OUTH_SECRET_KEY=69664101b26d2ece14d1d2e3ce1351f774429394ec4f25b600314b9447e942d7
+      - OUTH_ALGORITHM=HS256
+      - OUTH_ACCESS_TOKEN_EXPIRE_MINUTES=30
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./:/usr/src/app:ro
+    networks:
+      - postgres
+    depends_on:
+      - database
+
 networks:
   postgres:
     driver: bridge
